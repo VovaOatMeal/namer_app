@@ -25,28 +25,32 @@ class _FavoritesPageState extends State<FavoritesPage> {
 
     return favorites.isEmpty
         ? Center(child: Text("You haven't liked any phrases yet."))
-        : Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 24.0, vertical: 16.0),
-                child: Text("You have ${favorites.length} favorites:"),
-              ),
-              ListView.builder(
-                itemCount: favorites.length,
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    leading: IconButton(
-                      onPressed: () => removeFavorite(appState, index),
-                      icon: Icon(Icons.favorite),
-                    ),
-                    title: Text(appState.favorites[index].asPascalCase),
-                  );
-                },
-              ),
-            ],
-          );
+        : SafeArea(
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 24.0, vertical: 16.0),
+                  child: Text("You have ${favorites.length} favorites:"),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: favorites.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        leading: IconButton(
+                          onPressed: () => removeFavorite(appState, index),
+                          icon: Icon(Icons.favorite),
+                        ),
+                        title: Text(appState.favorites[index].asPascalCase),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+        );
   }
 }
